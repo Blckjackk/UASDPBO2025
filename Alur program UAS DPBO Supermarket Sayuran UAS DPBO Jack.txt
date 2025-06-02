@@ -1,0 +1,31 @@
+Alur MVVM pada program UASDPBOAhmadIzzuddinAzzamC2
+
+1. index.php (Controller utama)
+   - index.php adalah awal mulanya kitaa masuk aplikasi. Di sini, parameter 'action' dari URL dibaca untuk menentukan aksi apa yang dilakukan user (list, add, save, update, setlayak, delete).
+   - index.php membuat objek VegetableViewModel (ViewModel) dan memanggil fungsi-fungsi di ViewModel sesuai aksi user.
+   - Untuk aksi 'list', index.php Get / mengambil data dari ViewModel lalu mengirimkannya ke views/vegetable_list.php untuk ditampilkan.
+   - Untuk aksi 'add', index.php menampilkan form tambah/edit lewat views/vegetable_form.php.
+   - Untuk aksi 'save', 'update', 'setlayak', dan 'delete', index.php memanggil fungsi ViewModel yang sesuai untuk memproses data ke database, lalu redirect ke halaman utama.
+
+2. ViewModel (viewmodel/VegetableViewModel.php)
+   - ViewModel adalah penghubung antara index.php (controller/view) dan Model/database.
+   - ViewModel berisi fungsi untuk mengambil, menambah, mengupdate, menghapus, dan mengubah status data sayur.
+   - Semua logika pengolahan data dilakukan di ViewModel, termasuk validasi dan pemanggilan Model.
+
+3. Model (model/Vegetable.php)
+   - Model berisi struktur data sayur (id, nama, harga, tanggal masuk, deskripsi, asal pertanian, status, dll).
+   - Model juga bisa berisi fungsi untuk akses database, tapi pada program ini akses database lebih banyak diatur lewat ViewModel.
+
+4. View (views/vegetable_list.php, views/vegetable_form.php, views/template/header.php, views/template/footer.php)
+   - View bertugas menampilkan data ke user dan menerima input dari user.
+   - View hanya menampilkan data yang sudah diolah ViewModel, dan mengirim input user ke index.php (yang nanti diteruskan ke ViewModel).
+
+5. Alur Jalannya Program
+   - User mengakses aplikasi lewat index.php.
+   - index.php membaca aksi user (dari URL atau form), lalu memanggil fungsi di ViewModel.
+   - ViewModel mengambil/memproses data dari database (lewat Model/Database.php).
+   - Data yang sudah siap dikirim ke View untuk ditampilkan.
+   - Jika user melakukan aksi (tambah/edit/hapus/set layak), data dikirim dari View ke index.php, lalu ke ViewModel, lalu ke database.
+   - Setelah aksi selesai, user akan diarahkan kembali ke halaman utama (list data).
+
+Intinya: index.php sebagai controller utama, ViewModel sebagai jembatan logika, Model untuk struktur data, View untuk tampilan. Semua akses database lewat ViewModel, View tidak pernah langsung akses database.
